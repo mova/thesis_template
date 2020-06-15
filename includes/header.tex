@@ -1,186 +1,166 @@
 % language support
 \usepackage[english, ngerman]{babel}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
 
-\usepackage{lmodern}
+
+%% blindtext
+\usepackage{lipsum}
 
 % absolute text positioning
 \usepackage{textpos}
-
 % simple programming stuff like ifdef
 \usepackage{etoolbox}
-
-% dummy text
-\usepackage{lipsum}
-
+\usepackage{xparse}
 % used to modify geometry of titlepage
 \usepackage[pass]{geometry}
 
-% usual inner/outer margins for print version
-% but symmetric margins for online version
-\ifdef{\hardcopy}{
-\KOMAoptions{twoside=true}
-\KOMAoptions{BCOR=0cm}
-}{
-\KOMAoptions{twoside=semi}
-\KOMAoptions{BCOR=0cm}
-}
-
-% Microtype options
-\usepackage[activate={true,nocompatibility},final,tracking=false,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
-\DisableLigatures[f]{encoding = *, family = * }
-% activate={true,nocompatibility} - activate protrusion and expansion
-% final - enable microtype; use "draft" to disable
-% tracking=true, kerning=true, spacing=true - activate these techniques
-% factor=1100 - add 10% to the protrusion amount (default is 1000)
-% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
-
-% side captions
-\usepackage[rightcaption]{sidecap}
-\sidecaptionvpos{figure}{c}
-
+%%%% math packages and symbols
+\usepackage{amsmath,amssymb,amstext,amsthm,bm}
+\usepackage{hepparticles}
+\usepackage{heppennames2}
 % consistent SI units
 \usepackage{siunitx}
 \DeclareSIUnit[] \pbinv{\per \pico \barn}
 \DeclareSIUnit[] \fbinv{\per \femto \barn}
 
-% math packages and symbols
-\usepackage{amsmath,amssymb,amstext,amsthm,bm}
-% diagonal lines through math symbols/formulas
-\usepackage{cancel}
-% nice fractions for inline equations
-\usepackage{xfrac}
-\DeclareMathOperator\erf{erf}
-\DeclareMathOperator\sgn{sgn}
+%set the fonts
+%the order must be amsmath>hepparticles>unicode-math>fontspec
+\usepackage[
+    math-style=ISO,
+    bold-style=ISO,
+    nabla=upright
+]{unicode-math}
+\setmathfont{Libertinus Math}
+\setmathrm{Libertinus Serif}
+\usepackage{fontspec}
+\setmainfont[RawFeature=+kern;+liga;+calt]{Libertinus Serif}
+\setsansfont{Libertinus Sans}
+%Unify subscript depths
+\usepackage{subdepth}
+
+%set options for the ptdr-definitions
+\usepackage{ifthen}
+\newboolean{cms@external}
+\setboolean{cms@external}{false}
+%to allow for italic formatting
+\newboolean{cms@italic}
+\setboolean{cms@italic}{false}
+% includes macros for commonly used symbols
+\usepackage{ptdr-definitions}
+
+
+
+
+% \usepackage{changepage}
+% \usepackage{color,graphicx}
+\usepackage{color,graphicx}
+
+
+%xspace command for automatic spacing of shortcuts
+\usepackage{xspace}
+\xspaceaddexceptions{''}
+\xspaceaddexceptions{“}
+\xspaceaddexceptions{«}
+
+%number lines for review
+% \usepackage{lineno}
+% \linenumbers
+
+% for the tables
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{dcolumn}
+%%% new columntype cetering the decimal dot 
+\newcolumntype{d}{D{.}{.}{-2}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1\textwidth}}
+% cells with linebreaks
+\usepackage{makecell}
+% footnotes in tables
+\usepackage{threeparttable}
+% make them the footnotes footnotesize
+\appto\TPTnoteSettings{\footnotesize}
+
+
+%%% Settings for itemize / enumerate / description
+%% inline list  with the enumerate* enviroment
+\usepackage[inline]{enumitem}
+\setlist[description]{%
+  topsep=13pt,               % space before start / after end of list
+  itemsep=4pt,               % space between items
+  font={\normalfont\itshape}, % set the label font
+  labelsep=7pt,
+}
+%new list type with no spacing
+\newlist{nosepitemize}{itemize}{3}
+\setlist[nosepitemize]{
+  topsep=3pt,               % space before start / after end of list
+  itemsep=0pt,               % space between items
+  parsep=0pt,
+  partopsep=0pt,
+  label=\textbullet,
+}
+
 
 % graphics support
 \usepackage{graphicx}
-% advanced hyphenation support
-\usepackage{hyphenat}
-
-% defines font for textsc replacement
-\normalfont
-\DeclareFontShape{T1}{lmr}{bx}{sc} { <-> ssub * cmr/bx/sc }{}
-
-% table options
-\usepackage{multicol}
-\usepackage{multirow}
-\usepackage{makecell}
-\usepackage{booktabs}
-\usepackage{xspace}
-\usepackage{tabularx}
-\usepackage[usenames,dvipsnames,table,hyperref]{xcolor}
-
-% style of table ofcontents, list of figures, list of tables 
-\usepackage[titles]{tocloft}
-\setlength{\cftfignumwidth}{3.2em}
-\setlength{\cfttabnumwidth}{3.2em}
-\setlength{\cftbeforepartskip}{0em}
-\setlength{\cftbeforechapskip}{.5\baselineskip}
-
-% biblatex with biber
-\usepackage[
-        natbib=true,
-        style=numeric-comp,
-        sorting=none,
-        backend=biber,
-        doi=true,
-        url=false,
-        maxcitenames=2,
-        maxbibnames=3]{biblatex}
-
-% bib resource file
-\addbibresource{papers.bib}
-
-% Prevent trouble from citations in table of contents, etc
-\usepackage{notoccite}
-
-% adapts style of bibtex entries
-\renewbibmacro{in:}{}
-% online title upright
-\DeclareFieldFormat[online]{title}{\mkbibquote{#1}}
-\DeclareFieldFormat[report]{title}{\mkbibquote{#1}}
-\DeclareFieldFormat[book]{title}{\mkbibquote{#1}}
-% new line for doi
-\DeclareFieldFormat{doi}{%
-  \newline
-  \mkbibacro{DOI}\addcolon\space
-    \ifhyperref
-      {\href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
-      {\nolinkurl{#1}}}
-
-% use collaboration instead of author if available
-\DeclareSourcemap{
-  \maps[datatype=bibtex]{
-    \map{
-      \step[fieldsource=Collaboration, match=\regexp{([^,]+)}, fieldset=usera, fieldvalue={$1 Collaboration}, final=true]
-    }
-  }
-}
-\renewbibmacro*{author}{%
-  \iffieldundef{usera}{%
-    \printnames{author}%
-  }{%
-      \printfield{usera}%
-  }%
-}%
+%% coustom stuff for graphics
+\usepackage{pgf}
+\usepackage{import}
+\usepackage{neuralnetwork}
+\usepackage{tikz}
 
 % page header style
 \usepackage[headsepline]{scrlayer-scrpage} 
 \pagestyle{scrheadings} 
-\renewcommand*{\chaptermarkformat}{}
+
+% side captions
+\usepackage[rightcaption]{sidecap}
+\sidecaptionvpos{figure}{c}
+\usepackage{pdflscape}
 
 \usepackage{float}
-
 % Customising captions in floating environments
 \usepackage[labelfont={bf}]{caption}
-\captionsetup[table]{skip=5pt}
+\captionsetup[table]{labelsep=space}
+\captionsetup[figure]{labelsep=space}
+% \captionsetup{singlelinecheck=off}
 \usepackage{subcaption}
 \captionsetup{subrefformat=parens}
+\captionsetup[sub]{font=small}
+%% indent between »Figure 1.2« and the descrition in the following line
+\setcapindent{0em}
 
-\addtokomafont{caption}{\small}
-\addtokomafont{disposition}{\boldmath}
-\setcapindent{1em}
+% Place all floats in their section
+\usepackage[section,below]{placeins}
 
-% Control float placement
-\usepackage[section]{placeins}
-
-% Verbatim with URL-sensitive line breaks
 \usepackage{url}
-
-% allow dots in graphics filenames
-\usepackage{grffile}
-\DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
 % todo notes
 \usepackage[
-    colorinlistoftodos, 
-    shadow, 
-    disable,
+    colorinlistoftodos,
+    % disable,
     figwidth=.75\textwidth]{todonotes}
 \providecommand{\todoi}[1]{\todo[inline]{#1}}
 
 %Typeset source code listings using LATEX
-\usepackage{listings} 
-\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt} 
+% \usepackage{listings} 
+% \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt} 
 
 % Extensive support for hypertext in LATEX
-\usepackage[pdftex,
-    linktoc=all,
-    \ifdef{\hardcopy}{hidelinks}{colorlinks=true},
-    breaklinks=true,
-    pdftitle={Triple-Differential Dijet Cross Sections and PDF Constraints},
-    pdfauthor={Georg Sieber},
-    pdfsubject={Particle physics},
-    pdfkeywords={CERN, LHC, CMS, jets, particle physics, PDF},
-    hyperindex,
-    pdfpagemode=UseNone,
-    bookmarksopen=true]{hyperref}
-\hypersetup{
-    linkcolor=[RGB]{0, 28, 127},
-    urlcolor=[RGB]{0, 28, 127},
-    citecolor=[RGB]{0, 28, 127}
+\usepackage{hyperref}
+\hypersetup{linktoc=all,
+  hidelinks,
+  breaklinks=true,
+  hyperindex,
+  unicode=true,
+  pdfpagemode=UseNone,
+  pdftitle={Standard Model H→ττ Analysis},
+  pdfauthor={Max Mustermann},
+  bookmarksopen=true,
+  linkcolor=[RGB]{0, 28, 127},
+  urlcolor=[RGB]{0, 28, 127},
+  citecolor=[RGB]{0, 28, 127}
 }
 
 % Create glossaries and lists of acronyms
@@ -191,7 +171,7 @@
 %     section=chapter,
 %     numberedsection=nolabel]{glossaries} 
 % \makeglossaries 
-
+% \input{includes/abbrev}
 
 % defines the style of the chapter headings
 % chapter style, requires chapterprefix=true
@@ -203,17 +183,39 @@
     \ifstr{#2}{}{}{\vspace*{-\dp\strutbox}}%
     \titlerule\par\vspace{2ex}\nobreak%
     {\LARGE\centering#3}%
-    \vspace{2ex}\nobreak\titlerule\vspace{1ex}%
+    \vspace{2ex}\nobreak\titlerule\vspace{1ex}\nobreak\noindent%
   }
 \addtokomafont{disposition}{\normalfont\bfseries}
 \addtokomafont{chapterprefix}{\bfseries\scshape}
-\RedeclareSectionCommand[beforeskip=0pt,afterskip=1cm]{chapter}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=.5cm]{chapter}
 
-\input{includes/abbrev}
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+	{-2.5ex\@plus -1ex \@minus -.25ex}%
+	{1.25ex \@plus .25ex}%
+	{\normalfont\normalsize\bfseries}}
+\makeatother
+
+% Depth of the numbering
+% 1 chap 2 sec 3 subsec 4 paragrap
+\setcounter{secnumdepth}{3}
+% Depth of the TOC
+% 1 chap 2 sec 3 subsec 4 paragrap
+\setcounter{tocdepth}{3}
 
 \usepackage{scrhack}
 % ignores pdflatex warning which occurs for matplotlib plots and is a false warning
-\pdfsuppresswarningpagegroup=1
+% \pdfsuppresswarningpagegroup=1
 
-% includes macros for commonly used symbols
+%%%%% Addtional packages and own definitions
+\usepackage{vardict}
+\usepackage{tablebracket}
+
+%%% use this to store your own commands
+\input{includes/commands}
+
+% biber settings
+\input{includes/citing.tex}
+
+%include own shortcuts
 \input{includes/shortcuts.tex}

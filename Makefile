@@ -5,7 +5,8 @@
 
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
-all: thesis.pdf book.pdf
+all: thesis.pdf
+# book.pdf
 
 # CUSTOM BUILD RULES
 
@@ -28,22 +29,23 @@ all: thesis.pdf book.pdf
 
 # -interactive=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
+export TEXINPUTS:=./texmf//:packages//:${TEXINPUTS}
 
 thesis thesis.pdf: thesis.tex
 	latexmk -pdf   \
-	-jobname=thesis        \
-	-pdflatex="pdflatex --file-line-error --shell-escape --synctex=1 %O '\input{%S}'" thesis.tex
+	-jobname=build/thesis        \
+	-pdflatex="lualatex --file-line-error --halt-on-error --shell-escape --synctex=1 %O '\input{%S}'" thesis.tex
 
 force: thesis.tex
 	latexmk -pdf -g   \
-	-jobname=thesis        \
-	-pdflatex="pdflatex --file-line-error --shell-escape --synctex=1 %O '\input{%S}'" thesis.tex
+	-jobname=build/thesis        \
+	-pdflatex="lualatex --file-line-error --halt-on-error --shell-escape --synctex=1 %O '\input{%S}'" thesis.tex
 
 
 book book.pdf: thesis.tex
 	latexmk -pdf       \
-	-jobname=book   \
-	-pdflatex="pdflatex --file-line-error --shell-escape --synctex=1 %O '\def\hardcopy{}\input{%S}'" thesis.tex
+	-jobname=build/book   \
+	-pdflatex="lualatex --file-line-error --halt-on-error --shell-escape --synctex=1" thesis.tex
 
 
 thesis.acr: thesis.aux

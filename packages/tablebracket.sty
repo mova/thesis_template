@@ -1,0 +1,37 @@
+%% Adapted form https://tex.stackexchange.com/questions/206898/braces-for-cases-in-tabular-environment/207704#207704
+\def\fileversion{0.1}
+\def\filedate{2020/06/15}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tablebracket}
+
+
+\RequirePackage{amsmath}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+\RequirePackage{bigdelim}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing}
+
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+
+
+\newcommand*{\BraceAmplitude}{0.4em}%
+\newcommand*{\VerticalOffset}{0.5ex}%  
+\newcommand*{\HorizontalOffset}{0.0em}% 
+\NewDocumentCommand{\InsertRightBrace}{%
+    O{} % #1 = draw options
+    O{\HorizontalOffset,\VerticalOffset} % #2 = optional brace shift options
+    m   % #3 = top tikzmark
+    m   % #4 = bottom tikzmark
+    m   % #5 = node text
+}{%
+    \begin{tikzpicture}[overlay,remember picture]
+        \coordinate (Brace Top)    at ($(#3.north) + (#2)$);
+        \coordinate (Brace Bottom) at ($(#4.south) + (#2)$);
+    \draw [decoration={brace, amplitude=\BraceAmplitude}, decorate, thick, draw=blue, #1]
+            (Brace Top) -- (Brace Bottom) 
+            node [pos=0.5, anchor=west, align=left, text width=2.8cm, color=black, xshift=\BraceAmplitude] {#5};
+    \end{tikzpicture}%
+}%

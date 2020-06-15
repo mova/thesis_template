@@ -1,0 +1,52 @@
+
+\makeatletter
+\newcommand{\mycap}[2][\@nil]{%
+  \def\tmp{#1}%
+   \ifx\tmp\@nnil
+      \caption[#2]{\textbar\,\textbf{#2}}
+    \else
+      \caption[#1]{\textbar\,\textbf{#1} \newline\normalfont\small #2}
+    \fi}
+\makeatother
+
+\newcommand{\sfhalf}[1]{%
+\begin{subfigure}{0.47\textwidth}%
+     \centering%
+     \includegraphics[width=\textwidth]{{figures/#1.pdf}}%
+\end{subfigure}%
+}
+\newcommand{\sfhalfcap}[2]{%
+\begin{subfigure}{0.47\textwidth}%
+  \centering%
+  \includegraphics[width=\textwidth]{{figures/#1.pdf}}%
+  \mycap{#2}%
+\end{subfigure}%
+}
+
+\newcommand{\sffull}[1]{%
+\begin{subfigure}{0.96\textwidth}%
+     \centering%
+     \includegraphics[width=\textwidth]{{figures/#1.pdf}}%
+\end{subfigure}%
+}
+\newcommand{\sffullcap}[2]{%
+\begin{subfigure}{0.96\textwidth}%
+  \centering%
+  \includegraphics[width=\textwidth]{{figures/#1.pdf}}%
+  \mycap{#2}%
+\end{subfigure}%
+}
+\newcommand{\sfhalfheightcap}[2]{%
+\begin{subfigure}{0.95\textwidth}%
+  \centering%
+  \includegraphics[height=.44\textheight]{{figures/#1.pdf}}%
+  \mycap{#2}%
+\end{subfigure}%
+}
+\newcommand{\sfcustcap}[3]{%
+\begin{subfigure}{#1\textwidth}%
+  \centering%
+  \includegraphics[width=\textwidth]{{figures/#2.pdf}}%
+  \mycap{#3}%
+\end{subfigure}%
+}

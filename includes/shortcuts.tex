@@ -1,10 +1,188 @@
-%common abbrev
-\providecommand{\q}{\ensuremath{q}\xspace}
-\providecommand{\as}{\ensuremath{\alpha_{s}}\xspace}
-\providecommand{\mz}{\ensuremath{M_\mathrm{Z}}\xspace}
 
-\providecommand{\etal}{\mbox{et al.}\xspace} %et al. - no preceding comma
-\providecommand{\ie}{\mbox{i.\,e.}\xspace}     %i.e.
-\providecommand{\eg}{\mbox{e.\,g.}\xspace}     %e.g.
-\providecommand{\etc}{\mbox{etc.}\xspace}     %etc.
-\providecommand{\vs}{\mbox{\sl vs.}\xspace}      %vs.
+%%%%%%%%%%%%% local definitions %%%%%%%%%%%%%%%%%%%%%
+\newlength\cmsFigWidth
+\ifthenelse{\boolean{cms@external}}{\setlength\cmsFigWidth{0.49\textwidth}}{\setlength\cmsFigWidth{0.65\textwidth}} % example: one column in journal, 2/3 in CMS
+\ifthenelse{\boolean{cms@external}}{\providecommand{\cmsLeft}{upper\xspace}}{\providecommand{\cmsLeft}{left\xspace}}
+\ifthenelse{\boolean{cms@external}}{\providecommand{\cmsRight}{lower\xspace}}{\providecommand{\cmsRight}{right\xspace}}
+
+\newcommand{\METx}{\ensuremath{\not\!\!{E_{x}}}\xspace}
+\newcommand{\METy}{\ensuremath{\not\!\!{E_{y}}}\xspace}
+\newcommand{\METi}{\ensuremath{\not\!\!{E_{i}}}\xspace}
+
+\newcommand{\myMET}{\ensuremath{\not\!\!{E_{T}}}\xspace}
+
+
+\newcommand{\eslash}{\ensuremath{{\hbox{$E$\kern-0.3em\lower-.05ex\hbox{/}\kern0.10em}}}}
+\newcommand{\tauslash}{\ensuremath{{\hbox{\Pgt\kern-0.6em\lower-.05ex\hbox{/}\kern0.10em}}}}
+\newcommand{\vecmet}{\ensuremath{\vec{\eslash}_{\mathrm{T}}}\xspace} %missing ET vector
+\newcommand{\vecet}{\ensuremath{\vec{E}_{\mathrm{T}}}\xspace} % ET vector
+\newcommand{\vecpt}{\ensuremath{\vec{p}_{\mathrm{T}}}\xspace} % PT vector
+\renewcommand{\MET}{\ensuremath{\eslash_{\mathrm{T}}}\xspace}
+\newcommand{\met}{\ensuremath{\eslash_{\mathrm{T}}}\xspace} %missing ET, no space
+\newcommand{\mex}{\ensuremath{\eslash_{\mathrm{x}}}\xspace} %missing Ex
+\newcommand{\mey}{\ensuremath{\eslash_{\mathrm{y}}}\xspace} %missing Ey
+\newcommand{\Ztt}{\ensuremath{\cPZ \to \Pgt\Pgt}\xspace}
+\newcommand{\Zmm}{\ensuremath{\cPZ \to \Pgmp\Pgmm}\xspace}
+\newcommand{\Zee}{\ensuremath{\cPZ \to \Pe\Pe}\xspace}
+\newcommand{\sumet}{\mbox{$\sum E_\text{T}$}\xspace}
+\newcommand{\pfmet}{PF\,\MET}      % PFMET
+
+\newcommand{\qt}{\ensuremath{{q}_{\mathrm{T}}}\xspace}
+\newcommand{\ut}{\ensuremath{{u}_{\mathrm{T}}}\xspace}
+\renewcommand{\pt}{\ensuremath{{p}_{\mathrm{T}}}\xspace}
+
+\newcommand{\Et}{\ensuremath{{E}_{\mathrm{T}}}\xspace}
+%\newcommand{\mT}{\ensuremath{m_{\text{T}}}\xspace}
+\newcommand{\mttot}{\ensuremath{m_{\text{T}}^{\text{tot}}}\xspace}
+\newcommand{\mvis}{\ensuremath{m_{\text{vis}}}\xspace}
+\newcommand{\MTtt}{\ensuremath{{m}_{\text{T},\Pgt\Pgt}}\xspace}
+
+\newcommand{\bisec}{\ensuremath{{\hat b}}\xspace}
+\newcommand{\upar}{\ensuremath{u_\Vert}\xspace}
+\newcommand{\upara}{\ensuremath{u_\Vert}\xspace}
+\newcommand{\uperp}{\ensuremath{u_\perp}\xspace}
+\newcommand{\redupara}{\ensuremath{u_\Vert + \qt}\xspace}
+
+\newcommand{\reso}[1]{\ensuremath{ \sigma(#1) }\xspace}
+\newcommand{\resp}{\ensuremath{\langle - \upar \rangle / \qt}\xspace}
+% % Physics processes
+
+% % HTT channels
+% \newcommand{\Pgth}{\Pgt_{\text{h}}\xspace}
+\newcommand{\Pgth}{\ensuremath{\Pgt_{\text{h}}}\xspace}
+\newcommand{\emu}{\texorpdfstring{\ensuremath{\Pe\Pgm}}{eμ}\xspace}
+\newcommand{\ee}{\texorpdfstring{\ensuremath{\Pe\Pe}}{ee}\xspace}
+\newcommand{\mumu}{\texorpdfstring{\ensuremath{\Pgm\Pgm}}{μμ}\xspace}
+\newcommand{\mutau}{\texorpdfstring{\ensuremath{\Pgm\Pgth}}{μτ}\xspace}
+\newcommand{\etau}{\texorpdfstring{\ensuremath{\Pe\Pgth}}{eτ}\xspace}
+\newcommand{\tautau}{\texorpdfstring{\ensuremath{\Pgth\Pgth}}{ττ}\xspace}
+
+\newcommand{\ZJets}{\ensuremath{\PZ}{+}\text{jets}\xspace}
+\newcommand{\WJets}{\ensuremath{\PW}{+}\text{jets}\xspace}
+
+\newcommand{\ggPhi}{\ensuremath{\Pg\Pg\phi\xspace}}
+\newcommand{\bbPhi}{\ensuremath{\text{bb}\phi\xspace}}
+\newcommand{\mPhi}{\ensuremath{m_{\phi}\xspace}}
+
+%\newcommand{\ttbar}{\ensuremath{\Pqt\Paqt}\xspace}
+\newcommand{\ttbarJets}{\ensuremath{\Pqt\Paqt}{+}\text{jets}\xspace}
+\newcommand{\ZToTauTau}{\ensuremath{\PZ\to\Pgt\Pgt}\xspace}
+\newcommand{\HToTauTau}{\ensuremath{\PH\to\Pgt\Pgt}\xspace}
+\newcommand{\Htt}{\texorpdfstring{\ensuremath{\PH\to\Pgt\Pgt}}{H→ττ}\xspace}
+\newcommand{\Hbb}{\ensuremath{\PH\to\PQb\PQb}\xspace}
+\newcommand{\Hmm}{\ensuremath{\PH\to\Pgm\Pgm}\xspace}
+\newcommand{\ZToMuMu}{\ensuremath{\PZ\to\Pgm\Pgm}\xspace}
+\newcommand{\pzeta}{\ensuremath{p_{\zeta}}\xspace}
+\newcommand{\pzetavis}{\ensuremath{p_{\zeta}^{\text{vis}}}\xspace}
+\newcommand{\pzetamiss}{\ensuremath{p_{\zeta}^{\text{miss}}}\xspace}
+
+
+%\newcommand{\PV}{\ensuremath{\mathrm{V}}}
+\newcommand{\Wjets}{\ensuremath{\PW}{+}\text{jets}\xspace}
+\newcommand{\Zjets}{\mbox{\ensuremath{\PZ\text{jets}}}\xspace}
+\newcommand{\ZTT}{\mbox{\ensuremath{\PZ\to\Pgt\Pgt}}\xspace}
+\newcommand{\ZLL}{\mbox{\ensuremath{\PZ\to\ell\ell}}\xspace}
+\newcommand{\ZEE}{\mbox{\ensuremath{\PZ\to\Pe\Pe}}\xspace}
+\newcommand{\ZMM}{\mbox{\ensuremath{\PZ\to\Pgm\Pgm}}\xspace}
+\newcommand{\Ndata}{\ensuremath{N_{\text{data}}}}
+\newcommand{\HWW}{\mbox{\ensuremath{\PH\to\PW\PW}}\xspace}
+\newcommand{\qqH}{\mbox{\ensuremath{\Pq\Pq\to\PH}}\xspace}
+\newcommand{\ggH}{\mbox{\ensuremath{\Pg\Pg\to\PH}}\xspace}
+
+\newcommand{\bbH}{\mbox{\ensuremath{\PQb\PQb\to\PH}}\xspace}
+\newcommand{\VH}{\mbox{\ensuremath{\PV\PH}}\xspace}
+\newcommand{\VHhad}{\mbox{\ensuremath{\PV\PH(\text{had})}}\xspace}
+\newcommand{\ttH}{\mbox{\ensuremath{\ttbar\PH}}\xspace}
+\newcommand{\Irelem}{\ensuremath{I_{\text{rel}}^{\Pe(\Pgm)}}\xspace}
+\newcommand{\Irelm}{\ensuremath{I_{\text{rel}}^{\Pgm}}\xspace}
+\newcommand{\Irel}{\ensuremath{I_{\text{rel}}}\xspace}
+\newcommand{\FF}{\ensuremath{F_{\text{F}}}\xspace}
+
+%%% own stuff
+\renewcommand{\Htt}{\texorpdfstring{\ensuremath{\PH\to\Pgt\Pgt}}{H→ττ}\xspace}
+\renewcommand{\Zmm}{\ensuremath{\cPZ\to\Pgm\Pgm}\xspace}
+
+\newcommand{\xxH}{\mbox{\ensuremath{\Px\Px\to\PH}}\xspace}
+\newcommand{\VV}{\mbox{\ensuremath{\PV\PV}}\xspace}
+
+\newcommand{\TTT}{\mbox{\ensuremath{\ttbar\;(\Pgt\Pgt)}}\xspace}
+\newcommand{\VVT}{\mbox{\ensuremath{\PV\PV\;(\Pgt\Pgt)}}\xspace}
+
+\newcommand{\TTJ}{\mbox{\ensuremath{\ttbar\;\text{(jet)}}}\xspace}
+\newcommand{\VVJ}{\mbox{\ensuremath{\PV\PV\;\text{(jet)}}}\xspace}
+\newcommand{\WJ}{\mbox{\ensuremath{\PW\;\text{(jet)}}}\xspace}
+\newcommand{\ZJ}{\mbox{\ensuremath{\PZ\;\text{(jet)}}}\xspace}
+
+\newcommand{\TTL}{\mbox{\ensuremath{\ttbar\;(l\ell)}}\xspace}
+\newcommand{\VVL}{\mbox{\ensuremath{\PV\PV\;(l\ell)}}\xspace}
+\newcommand{\EWKZ}{\mbox{\ensuremath{\text{electroweak }\PZ}}\xspace}
+\newcommand{\EMB}{\Pgt-embedding\xspace}
+\newcommand{\QCD}{QCD multi-jet\xspace}
+
+
+% \newcommand{\lfakes}{\ensuremath{\ell\to\tauslash}}
+\newcommand{\jetfakes}{\texorpdfstring{\ensuremath{\text{jet}\to\tauslash}}{jet→¬τ\xspace}}
+\newcommand{\lfakes}{\texorpdfstring{\ensuremath{\ell\to\tauslash}}{lepton→¬τ\xspace}}
+
+\newcommand{\ZL}{\ZLL}
+\newcommand{\W}{\WJ}
+
+
+
+\newcommand{\DRsl}{\ensuremath{\mathrm{DR}_{\mathrm{sl}}}\xspace}
+\newcommand{\DRbl}{\ensuremath{\mathrm{DR}_{\mathrm{bl}}}\xspace}
+\newcommand{\AR}{\ensuremath{\mathrm{AR}}\xspace}
+\newcommand{\SR}{\ensuremath{\mathrm{SR}}\xspace}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\softmax}{softmax}
+\DeclareMathOperator\erf{erf}
+\DeclareMathOperator\sgn{sgn}
+
+%%% STXS bins
+\DefineDictionary{stxs}{%
+ggh1:{$\ggH$ $0\,\text{Jet}$ $p_{T}^{H}<200$\xspace},
+ggh2:{$\ggH$ $1\,\text{Jet}$ $p_{T}^{H}<120$\xspace},
+ggh3:{$\ggH$ $1\,\text{Jet}$ $p_{T}^{H}\in[120,200]$\xspace},
+ggh4:{$\ggH$ $≥2\,\text{Jet}$ $p_{T}^{H}<200$ $m_{jj}<350$\xspace},
+ggh5:{$\ggH$ $p_{T}^{H}>200$\xspace},
+qqh1:{$\qqH$ $≥2\,\text{Jet}$ $m_{jj}<350$\xspace},
+qqh2:{$\qqH$ $≥2\,\text{Jet}$ $m_{jj}>350$ $p_{T}^{H}>200$\xspace},
+qqh3:{$\qqH$ $≤1\,\text{Jet}$\xspace},
+xxh1:{$\xxH$ $≥2\,\text{Jet}$ $m_{jj}\in[350,700]$ $p_{T}^{H}<200$\xspace},
+xxh2:{$\xxH$ $≥2\,\text{Jet}$ $m_{jj}>700$ $p_{T}^{H}<200$\xspace}
+}
+
+%%% variables
+\DefineDictionary{var}{%
+pt_1:\ensuremath{p_{\text{T},1}},%
+pt_2:\ensuremath{p_{\text{T},2}},%
+eta:\ensuremath{η},%
+eta_1:\ensuremath{η_1},%
+m_vis:\ensuremath{m_{\text{vis}}},%
+ptvis:\ensuremath{p_{\text{T},\text{vis}}},%
+m_sv_puppi:\ensuremath{m_{\text{sv}}},%
+m_sv:\ensuremath{m_{\text{sv}}},%
+bpt_1:\ensuremath{p_{\text{T},\text{b-jet},1}},%
+jpt_1:\ensuremath{p_{\text{T},\text{jet},1}},%
+jpt_2:\ensuremath{p_{\text{T},\text{jet},2}},%
+jdeta:\ensuremath{δη_{jj}},%
+mjj:\ensuremath{m_{jj}},%
+dijetpt:\ensuremath{p_{\text{T},jj}},%
+mTdileptonMET_puppy:\ensuremath{m_{\text{T},ll}^{\text{MET}}},%
+njets:\ensuremath{n_{\text{jets}}},%
+nbtag:\ensuremath{n_{\text{b-tags}}},%
+ME_q2v1:\ensuremath{\text{ME}_{\text{q2v1}}},%
+ME_q2v2:\ensuremath{\text{ME}_{\text{q2v2}}},%
+}
+
+%% shortcuts for the ff chapter
+\DeclareRobustCommand{\PGnell}{{\HepParticle{\PGn}{\ell}{}}\Xspace} % neutrino (for lepton l)
+\newcommand{\ptth}{\ensuremath{{p}_\mathrm{T}^{\Pgth}}\xspace}
+
+\renewcommand{\FF}{\texorpdfstring{\ensuremath{F_\mathrm{F}}}{F\_F}\xspace}
+%% charged hadrons
+\DeclareRobustCommand{\PHm}{{\HepParticle{h}{}{-}}\Xspace}
+\DeclareRobustCommand{\PHp}{{\HepParticle{h}{}{+}}\Xspace}
+\DeclareRobustCommand{\PHpm}{{\HepParticle{h}{}{\pm}}\Xspace}

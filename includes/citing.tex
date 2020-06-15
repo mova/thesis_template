@@ -1,0 +1,48 @@
+
+%%%%%% Citing
+% biblatex with biber
+\usepackage[
+        natbib=true,
+        style=numeric-comp,
+        sorting=none,
+        backend=biber,
+        doi=true,
+        url=true,
+        maxcitenames=2,
+        maxbibnames=3]{biblatex}
+
+% bib resource file
+\addbibresource{papers.bib}
+
+% Prevent trouble from citations in table of contents, etc
+\usepackage{notoccite}
+
+% adapts style of bibtex entries
+\renewbibmacro{in:}{}
+% online title upright
+\DeclareFieldFormat[online]{title}{\mkbibquote{#1}}
+\DeclareFieldFormat[report]{title}{\mkbibquote{#1}}
+\DeclareFieldFormat[book]{title}{\mkbibquote{#1}}
+% new line for doi
+\DeclareFieldFormat{doi}{%
+  \newline
+  \mkbibacro{DOI}\addcolon\space
+    \ifhyperref
+      {\href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
+      {\nolinkurl{#1}}}
+
+% use collaboration instead of author if available
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldsource=Collaboration, match=\regexp{([^,]+)}, fieldset=usera, fieldvalue={$1 Collaboration}, final=true]
+    }
+  }
+}
+\renewbibmacro*{author}{%
+  \iffieldundef{usera}{%
+    \printnames{author}%
+  }{%
+      \printfield{usera}%
+  }%
+}%

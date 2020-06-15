@@ -5,37 +5,41 @@
     toc=listofnumbered,
     chapterprefix=true,
     numbers=noendperiod,
+    paper=a4,
+    DIV=12,
+    BCOR=1.5cm,
     % draft=true,
     % parskip=half,
+    openright,
     toc=bibliographynumbered]{scrbook}
-
+    
 %packages
 \input{includes/header}
 
-\begin{document}
 
+\begin{document}
 \selectlanguage{english}
 
 \setcounter{page}{1} \pagenumbering{Roman} 
-\input{includes/titlepage}
-\input{includes/abstract}
+\include{includes/titlepage}
+\include{includes/abstract}
 
-\setcounter{page}{1} \pagenumbering{arabic} 
 
 \tableofcontents
+\cleardoubleoddpage
+\pagenumbering{arabic}
 
 \input{chapters/introduction}
+\input{chapters/cms}
 
-\cleardoublepage
-\listoftodos
+\include{chapters/smhtt}
+\include{chapters/conclusion}
 
-\begin{appendix}
-\input{chapters/appendix}
-\end{appendix}
+\appendix
+\include{chapters/appendix}
 
-\input{includes/final}
+\include{includes/final}
 
-\input{includes/acknowledgements}
-\input{includes/erklaerung}
+\include{includes/acknowledgements}
+\include{includes/erklaerung}
 \end{document}
-
