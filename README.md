@@ -1,12 +1,21 @@
 # Thesis LaTeX template
+Fork of https://github.com/claria/thesis_template.
+Includes the ptdr definitions and allows setting bold particle names.
 
 ## Dependencies
-- biber (for biblatex)
-- latexmk (for automating the pdf generation using the appropriate sequence)
+- TeXLive full
+- Libertus Font Family https://github.com/alif-type/libertinus (install in `~/.fonts/`)
+
+## Structure
+[`thesis.tex`]    Include the files, layout settings
+[`chapters/`]   Thesis content.
+[`includes/header.tex`]   LaTeX config, packages etc.
+[`includes/commands.tex`]   Longer commands, like subfigure templates.
+[`includes/shortcuts.tex`]   Short commands, like `\Htt`.
+
 
 ## Build
+The build is issued using `make`.
 
-The build of the pdf is issued using the commands `make thesis` and `make book`
-which build the web and book versions of the thesis. The only difference between
-the web/book versions are symmetric/asymmetric page margins and colored/black
-hyperlinks.
+## VSCODE
+I recommend using VSCODE with the LaTeX workshop and LTeX extensions (https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop  and https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex). `settings.json` contains the recommended settings.
