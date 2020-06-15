@@ -7,10 +7,14 @@ Includes the ptdr definitions and allows setting bold particle names.
 - Libertus Font Family https://github.com/alif-type/libertinus (install in `~/.fonts/`)
 
 ## Structure
-[`thesis.tex`]    Include the files, layout settings
+[`thesis.tex`]    Include files, layout settings.
+
 [`chapters/`]   Thesis content.
+
 [`includes/header.tex`]   LaTeX config, packages etc.
+
 [`includes/commands.tex`]   Longer commands, like subfigure templates.
+
 [`includes/shortcuts.tex`]   Short commands, like `\Htt`.
 
 
